@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build -t claude-code:latest -f ./Dockerfile.claude .

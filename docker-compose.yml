@@ -1,0 +1,11 @@
+
+services:
+  claude-code:
+    # FIXME: probably better to use different user, lazy to deal with the permission issue as of now
+    image: claude-code:latest
+    volumes:
+      - claude:/root/.claude
+    command: claude
+
+volumes:
+  claude:

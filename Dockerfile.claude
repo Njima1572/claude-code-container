@@ -1,0 +1,19 @@
+# Node 20 LTS, npm pre‑installed
+FROM node:20-bullseye-slim
+
+# ----- extra tooling you still want -------------------------------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git openssh-client python3 python3-venv build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# ----- Claude Code CLI --------------------------------------------
+RUN npm install -g @anthropic-ai/claude-code@latest
+
+# ----- non‑root user ----------------------------------------------
+# RUN useradd -m -s /bin/bash claude
+# USER claude
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
