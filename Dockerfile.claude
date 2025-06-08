@@ -17,7 +17,7 @@ RUN npm install -g @anthropic-ai/claude-code@latest
 RUN mkdir -p /workspace && \
     chown -R node:node /workspace
 
-user node
+USER node
 WORKDIR /workspace
 
 CMD ["/bin/bash"]
