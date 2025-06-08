@@ -22,3 +22,6 @@ Under `privoxy/user.action`
 
 ```
 
+
+### Adding specific languages / libraries
+- Do so in DOckerfile.claude
