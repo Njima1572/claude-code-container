@@ -15,7 +15,7 @@ RUN npm install -g @anthropic-ai/claude-code@latest
 # RUN useradd -m -s /bin/bash claude
 # USER claude
 RUN mkdir -p /workspace && \
-    chwon -R node:node workspace
+    chwon -R node:node /workspace
 
 user node
 WORKDIR /workspace
