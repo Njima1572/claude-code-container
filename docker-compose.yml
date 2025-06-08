@@ -1,11 +1,41 @@
 
 services:
+  proxy:
+    image: vimagick/privoxy
+    container_name: proxy
+    restart: unless-stopped
+    networks:
+      claude-net:
+        aliases:
+          - proxy
+    volumes:
+      - ./privoxy/user.action:/etc/privoxy/user.action
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z -w2 127.0.0.1 8118"]
+      interval: 30s
+      tiemout: 10s
+      retries: 3
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    # cap_drop:
+    #   - ALL
+
   claude-code:
     # FIXME: probably better to use different user, lazy to deal with the permission issue as of now
+    user: node
     image: claude-code:latest
+    environment:
+      HTTP_PROXY: http://proxy:8118
+      CLAUDE_CONFIG_DIR: /home/node/.claude
+    networks:
+      - claude-net
     volumes:
-      - claude:/root/.claude
+      - ./claude:/home/node/.claude
+      - ./CLAUDE.md:/workspace/CLAUDE.md:ro
     command: claude
 
-volumes:
-  claude:
+networks:
+  claude-net:
+    driver: bridge
