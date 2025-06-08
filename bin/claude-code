@@ -1,2 +1,17 @@
 #!/bin/bash
-docker compose run --rm -it claude-code claude $@
+
+set -euo pipefail
+
+current_dir=$PWD
+script_dir=$(dirname "$(readlink -f "$0" )")
+
+
+source "$script_dir/volumes.sh"
+
+docker compose run --rm -it $DOCKER_VOLUMES --rm claude-code claude $@
+
+cleanup() {
+  cd $current_dir
+}
+
+trap cleanup EXIT SIGINT SIGTERM SIGKILL
