@@ -1,10 +1,6 @@
 #!/bin/bash
 
-VOLUME_LIST="$(cat << 'EOF'
-# Source:destination:rw
-/Users/kochi/Development/ClaudeCode:/workspace:rw
-EOF
-)"
+VOLUME_LIST="$(cat volumes.txt 2>/dev/null || echo "")"
 
 [[ -z "${VOLUME_LIST}" ]] && { echo "Volume list is empty!"; exit 1; }
 

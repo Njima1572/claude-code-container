@@ -1,0 +1,2 @@
+# Source:destination:rw
+/home/nakajima/Development/claude-code-container:/workspace:rw

@@ -1,15 +1,32 @@
-## claude-code container
+# Claude Code Container
 
-### Getting started
+A containerized environment for running Claude Code CLI with proxy support and configurable volume mounting.
 
-1. `./bin/build` to build the docker contianer
+## Quick Start
 
-2. `./bin/claude-code` to execute
-   - (Optional): Modify the volumes that you want to mount under `bin/volumes.sh`
+1. **Build the container:**
+   ```bash
+   ./bin/build
+   ```
 
-### Setup proxy with block / allow list
+2. **Run Claude Code:**
+   ```bash
+   ./bin/claude-code
+   ```
 
-Under `privoxy/user.action`
+## Configuration
+
+### Volume Mounting
+Edit `volumes.txt` to configure mounted volumes:
+```
+# Format: source:destination:rw
+/home/user/project:/workspace:rw
+```
+
+The script `bin/volumes.sh` reads from this file to set up Docker volumes.
+
+### Proxy Configuration
+Configure network access in `privoxy/user.action`:
 
 ```
 { +block }
@@ -18,10 +35,26 @@ Under `privoxy/user.action`
 { -block }
 .anthropic.com
 
-# Add any other whitelist urls here
-
+# Add other allowed domains here
 ```
 
+### Adding Languages/Libraries
+Modify `Dockerfile.claude` to install additional tools:
+```dockerfile
+RUN apt-get update && \
+    apt-get install -y your-package && \
+    rm -rf /var/lib/apt/lists/*
+```
 
-### Adding specific languages / libraries
-- Do so in DOckerfile.claude
+## Project Structure
+
+- `bin/` - Build and execution scripts
+- `claude/` - Claude configuration directory
+- `privoxy/` - Proxy configuration
+- `volumes.txt` - Volume mount configuration
+- `docker-compose.yml` - Service orchestration
+- `Dockerfile.claude` - Container definition
+
+## Development
+
+See `CLAUDE.md` for detailed maintenance guidelines and development workflow.

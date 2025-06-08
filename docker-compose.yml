@@ -33,7 +33,7 @@ services:
       - claude-net
     volumes:
       - ./claude:/home/node/.claude
-      - ./CLAUDE.md:/workspace/CLAUDE.md:ro
+      # - ./CLAUDE.md:/workspace/CLAUDE.md:ro
     command: claude
     depends_on: 
       - proxy
