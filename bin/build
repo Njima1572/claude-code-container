@@ -3,3 +3,5 @@
 image_name=claude-code
 
 docker build -t $image_name:latest -f ./Dockerfile.claude .
+
+mkdir -p ./claude
