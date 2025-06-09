@@ -4,5 +4,6 @@
 
 { -block }
 .anthropic.com
+# .github.com # For gh cli
 
 # Add any other whitelist urls here
